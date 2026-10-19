@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "meta": {
+    "siteId": "www-wnacg-com",
+    "siteName": "wnacg",
+    "baseUrl": "https://www.wnacg.com",
+    "contentType": "comic"
+  },
+  "request": {
+    "method": "GET",
+    "charset": "utf-8",
+    "timeoutMs": 10000,
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+    }
+  },
+  "routes": {
+    "indexUrl": "https://www.wnacg.com/albums.html",
+    "detailUrlMode": "direct"
+  },
+  "indexRule": {
+    "item": {
+      "selector": "li.gallary_item"
+    },
+    "fields": {
+      "title": {
+        "selector": ".title a",
+        "function": "text",
+        "trim": true
+      },
+      "detailUrl": {
+        "selector": ".title a",
+        "function": "attr",
+        "param": "href",
+        "regex": "/photos-index-aid-([0-9]+)\\.html",
+        "replacement": "$1",
+        "template": "https://www.wnacg.com/photos-index-aid-{value}.html"
+      },
+      "cover": {
+        "selector": ".pic_box img",
+        "function": "attr",
+        "param": "src",
+        "absoluteUrl": true
+      },
+      "id": {
+        "selector": ".title a",
+        "function": "attr",
+        "param": "href",
+        "regex": "/photos-index-aid-([0-9]+)\\.html",
+        "replacement": "$1"
+      }
+    }
+  },
+  "detailRule": {
+    "item": {
+      "selector": "div.grid .pic_box"
+    },
+    "fields": {
+      "title": {
+        "selector": "img",
+        "function": "attr",
+        "param": "alt"
+      },
+      "url": {
+        "selector": "a",
+        "function": "attr",
+        "param": "href",
+        "absoluteUrl": true
+      }
+    }
+  },
+  "contentRule": {
+    "images": {
+      "item": {
+        "selector": "#imgarea"
+      },
+      "fields": {
+        "url": {
+          "selector": "#picarea",
+          "function": "attr",
+          "param": "src",
+          "absoluteUrl": true
+        }
+      }
+    }
+  }
+}
